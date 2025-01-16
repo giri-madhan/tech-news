@@ -1,0 +1,53 @@
+.error-fallback {
+  text-align: center;
+  padding: 2rem;
+  color: var(--app-error-color);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.error-fallback h2 {
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+}
+
+.error-fallback p {
+  margin-bottom: 1rem;
+  line-height: 1.5;
+}
+
+.error-fallback__details {
+  font-size: 0.875rem;
+  padding: 1rem;
+  background-color: rgba(var(--app-error-rgb), 0.1);
+  border-radius: 4px;
+  margin: 1rem 0;
+  word-break: break-word;
+}
+
+.error-fallback button {
+  margin-top: 1rem;
+  padding: 0.75rem 1.5rem;
+  border: 1px solid currentColor;
+  border-radius: 4px;
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 1rem;
+}
+
+.error-fallback button:hover {
+  background-color: var(--app-error-color);
+  color: white;
+}
+
+.error-fallback button:focus {
+  outline: 2px solid var(--app-error-color);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .error-fallback button {
+    transition: none;
+  }
+} 
