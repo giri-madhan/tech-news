@@ -39,19 +39,26 @@ const ArticleList: React.FC = () => {
   const renderContent = () => {
     if (status === 'loading' && articles.length === 0) {
       return (
-        <div className="loading-container" role="status" aria-label="Loading articles">
-          <LoadingSpinner />
+        <div
+          className="loading-container"
+          role="status"
+          aria-label="Loading articles"
+          aria-live="polite"
+        >
+          <LoadingSpinner message="Loading articles..." />
         </div>
       );
     }
 
     if (status === 'failed') {
       return (
-        <ErrorMessage
-          title="Error Loading Articles"
-          message={error}
-          onRetry={() => window.location.reload()}
-        />
+        <div role="alert" aria-live="assertive">
+          <ErrorMessage
+            title="Error Loading Articles"
+            message={error}
+            onRetry={() => window.location.reload()}
+          />
+        </div>
       );
     }
 
@@ -67,10 +74,12 @@ const ArticleList: React.FC = () => {
   };
 
   return (
-    <main className="article-list-container">
+    <main className="article-list-container" aria-busy={status === 'loading'}>
       <header className="article-list-header">
-        <h1 className="article-list-title">Latest Tech News</h1>
-        <p className="article-list-subtitle">
+        <h1 className="article-list-title" tabIndex={-1}>
+          Latest Tech News
+        </h1>
+        <p className="article-list-subtitle" aria-label="Page description">
           Stay updated with the latest technology news and insights
         </p>
       </header>
@@ -78,8 +87,19 @@ const ArticleList: React.FC = () => {
       {renderContent()}
 
       {status === 'loading' && articles.length > 0 && (
-        <div className="loading-container" role="status" aria-label="Loading more articles">
-          <LoadingSpinner />
+        <div
+          className="loading-container"
+          role="status"
+          aria-label="Loading more articles"
+          aria-live="polite"
+        >
+          <LoadingSpinner message="Loading more articles..." />
+        </div>
+      )}
+
+      {hasMore && (
+        <div className="articles-end-message" role="status" aria-live="polite">
+          Scroll for more articles
         </div>
       )}
     </main>

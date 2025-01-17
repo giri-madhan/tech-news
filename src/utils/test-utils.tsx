@@ -5,7 +5,7 @@ import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router-dom';
 import { configureStore } from '@reduxjs/toolkit';
 import articlesReducer, { ArticlesState } from '../features/articles/articlesSlice';
-import articleDetailReducer, { ArticleDetailState } from '../features/detail/articleDetailSlice';
+import articleDetailReducer, { ArticleDetailState } from '../features/articles/articleDetailSlice';
 import { Article } from '../types/guardian';
 
 export const mockArticles: Article[] = [

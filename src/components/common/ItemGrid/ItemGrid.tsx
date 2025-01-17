@@ -19,16 +19,29 @@ export function ItemGrid<T>({
   ariaLabel = 'Items grid',
 }: ItemGridProps<T>) {
   return (
-    <div className={`item-grid ${className}`} role="feed" aria-label={ariaLabel}>
+    <div
+      className={`item-grid ${className}`}
+      role="feed"
+      aria-label={ariaLabel}
+      aria-busy={items.length === 0}
+    >
       {items.map((item, index) => (
         <div
           key={index}
           ref={index === items.length - 1 ? lastItemRef : null}
           className={`item-grid-item ${itemClassName}`}
+          role="article"
+          aria-setsize={items.length}
+          aria-posinset={index + 1}
         >
           {renderItem(item, index)}
         </div>
       ))}
+      {items.length === 0 && (
+        <div role="status" aria-live="polite">
+          No items to display
+        </div>
+      )}
     </div>
   );
 }

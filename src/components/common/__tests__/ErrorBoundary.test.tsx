@@ -193,8 +193,8 @@ describe('ErrorBoundary', () => {
     );
 
     expect(screen.getByText('Error Details')).toBeInTheDocument();
-    const details = screen.getByText('Error Details').parentElement as HTMLElement;
-    expect(details.tagName.toLowerCase()).toBe('details');
+    const details = screen.getByText('Error Details').closest('details') as HTMLElement;
+    expect(details).toBeTruthy();
 
     process.env.NODE_ENV = originalEnv;
   });

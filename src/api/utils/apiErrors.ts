@@ -23,4 +23,3 @@ export class NotFoundError extends ApiError {
     this.statusCode = 404;
   }
 }
-

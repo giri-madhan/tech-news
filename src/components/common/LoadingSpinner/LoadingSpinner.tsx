@@ -12,11 +12,17 @@ export const LoadingSpinner: React.FC<LoadingSpinnerProps> = ({
 }) => (
   <div
     className={`loading-container loading-container--padded ${fullscreen ? 'loading-container--fullscreen' : ''}`}
-    role="progressbar"
+    role="status"
+    aria-busy="true"
+    aria-live="polite"
     aria-label={message}
     data-testid="loading-spinner"
   >
-    <div className="loading-spinner" />
-    <p>{message}</p>
+    <div className="loading-spinner" role="progressbar" aria-valuetext={message} />
+    <p className="loading-message" aria-live="polite">
+      {message}
+    </p>
   </div>
 );
+
+export default React.memo(LoadingSpinner);
