@@ -50,7 +50,8 @@ describe('ArticleItem', () => {
   it('uses placeholder image when urlToImage is not provided', () => {
     render(<ArticleItem {...defaultProps} urlToImage={undefined} />);
 
-    expect(screen.getByRole('img')).toHaveAttribute('src', expect.stringContaining('placeholder'));
+    const img = screen.getByAltText('');
+    expect(img).toHaveAttribute('src', expect.stringContaining('placeholder'));
   });
 
   it('formats date correctly', () => {
@@ -100,6 +101,6 @@ describe('ArticleItem', () => {
 
     const article = screen.getByRole('article');
     expect(article).toHaveAttribute('tabIndex', '0');
-    expect(screen.getByLabelText('Read full article')).toBeInTheDocument();
+    expect(screen.getByText('Read full article →')).toBeInTheDocument();
   });
 });

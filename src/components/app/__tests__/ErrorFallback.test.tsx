@@ -25,7 +25,7 @@ describe('ErrorFallback', () => {
     expect(screen.getByRole('alert')).toBeInTheDocument();
     expect(screen.getByText('Something went wrong')).toBeInTheDocument();
     expect(screen.getByText('Test error message')).toBeInTheDocument();
-    expect(screen.getByRole('button')).toHaveAccessibleName('Reload page');
+    expect(screen.getByRole('button')).toHaveAccessibleName('Reload page to try again');
   });
 
   it('applies custom className', () => {
@@ -70,10 +70,10 @@ describe('ErrorFallback', () => {
     renderComponent();
 
     const alert = screen.getByRole('alert');
-    expect(alert).toHaveAttribute('aria-live', 'polite');
+    expect(alert).toHaveAttribute('aria-live', 'assertive');
 
     const button = screen.getByRole('button');
     expect(button).toHaveAttribute('type', 'button');
-    expect(button).toHaveAttribute('aria-label', 'Reload page');
+    expect(button).toHaveAttribute('aria-label', 'Reload page to try again');
   });
 });

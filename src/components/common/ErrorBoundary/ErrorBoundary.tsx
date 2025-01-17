@@ -123,34 +123,59 @@ class ErrorBoundary extends Component<Props, State> {
       const canRetry = this.state.retryCount < retryLimit;
 
       return (
-        <div className="error-container" role="alert" aria-live="polite">
+        <div className="error-container" role="alert" aria-live="assertive" aria-atomic="true">
           <div className="error-content">
-            <h1 className="error-title">{errorConfig.title}</h1>
-            <p className="error-message">{errorConfig.message}</p>
-            <div className="error-actions">
+            <h1 id="error-title" tabIndex={-1} className="error-heading">
+              {errorConfig.title}
+            </h1>
+            <p id="error-description" className="error-message" aria-labelledby="error-title">
+              {errorConfig.message}
+            </p>
+            <div className="error-actions" aria-label="Error recovery options">
               {canRetry && (
-                <button className="error-button" onClick={this.handleReset} aria-label="Try again">
+                <button
+                  className="error-button"
+                  onClick={this.handleReset}
+                  aria-label="Try again to recover from error"
+                  type="button"
+                >
                   Try Again
                 </button>
               )}
               <button
                 className="error-button"
                 onClick={this.handleRefresh}
-                aria-label="Refresh page"
+                aria-label="Refresh page to recover from error"
+                type="button"
               >
                 Refresh Page
               </button>
             </div>
             {!canRetry && (
-              <p className="error-retry-limit">
+              <p className="error-retry-limit" role="status" aria-live="polite" aria-atomic="true">
                 Maximum retry attempts reached. Please refresh the page.
               </p>
             )}
             {process.env.NODE_ENV === 'development' && (
-              <details className="error-details">
-                <summary>Error Details</summary>
-                <pre>{this.state.error?.toString()}</pre>
-                <pre>{this.state.errorInfo?.componentStack}</pre>
+              <details
+                className="error-details"
+                aria-label="Technical error details for developers"
+              >
+                <summary>
+                  <span className="error-details-summary">Error Details</span>
+                </summary>
+                <div
+                  className="error-details-content"
+                  role="region"
+                  aria-label="Error stack trace details"
+                >
+                  <pre role="log" aria-label="Error message">
+                    {this.state.error?.toString()}
+                  </pre>
+                  <pre role="log" aria-label="Component stack trace">
+                    {this.state.errorInfo?.componentStack}
+                  </pre>
+                </div>
               </details>
             )}
           </div>

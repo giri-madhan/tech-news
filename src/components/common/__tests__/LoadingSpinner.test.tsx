@@ -41,7 +41,7 @@ describe('LoadingSpinner', () => {
     render(<LoadingSpinner message={message} />);
 
     const spinner = screen.getByTestId('loading-spinner');
-    expect(spinner).toHaveAttribute('role', 'progressbar');
+    expect(spinner).toHaveAttribute('role', 'status');
     expect(spinner).toHaveAttribute('aria-label', message);
   });
 

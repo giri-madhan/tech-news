@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch } from '../../redux/store';
-import { setCurrentArticle } from '../../features/detail/articleDetailSlice';
+import { setCurrentArticle } from '../../features/articles/articleDetailSlice';
 import placeholderImage from '../../assets/images/placeholder.svg';
 import './ArticleItem.css';
 
@@ -69,28 +69,43 @@ const ArticleItem: React.FC<ArticleItemProps> = ({
       tabIndex={0}
       onKeyDown={e => {
         if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
           handleArticleClick();
         }
       }}
+      aria-label={`Article: ${title}`}
     >
       <div className="article-content">
-        <h2 className="article-title">{title}</h2>
-        <p className="article-description">{description}</p>
-        <div className="article-meta">
-          <time className="article-date" dateTime={publishedAt}>
+        <h2 className="article-title" id={`article-title-${id}`}>
+          {title}
+        </h2>
+        <p
+          className="article-description"
+          id={`article-desc-${id}`}
+          aria-labelledby={`article-title-${id}`}
+        >
+          {description}
+        </p>
+        <div className="article-meta" aria-label="Article metadata">
+          <time
+            className="article-date"
+            dateTime={publishedAt}
+            aria-label={`Published on ${formatDate(publishedAt)}`}
+          >
             {formatDate(publishedAt)}
           </time>
-          <span className="article-read-more" aria-label="Read full article">
+          <span className="article-read-more" aria-hidden="true">
             Read full article →
           </span>
         </div>
       </div>
-      <div className="article-image-container">
+      <div className="article-image-container" aria-hidden={!urlToImage}>
         <img
           src={urlToImage || placeholderImage}
-          alt={`Thumbnail for article: ${title}`}
+          alt={urlToImage ? `Thumbnail for article: ${title}` : ''}
           className="article-image"
           loading="lazy"
+          aria-labelledby={`article-title-${id}`}
         />
       </div>
     </article>

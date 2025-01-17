@@ -39,7 +39,7 @@ describe('App Component', () => {
       renderWithProviders(<App />);
 
       await waitFor(() => {
-        const loadingSpinner = screen.getByRole('status');
+        const loadingSpinner = screen.getByTestId('loading-spinner');
         expect(loadingSpinner).toBeInTheDocument();
       });
     });

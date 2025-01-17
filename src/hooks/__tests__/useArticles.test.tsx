@@ -5,7 +5,7 @@ import { ArticlesState } from '../../features/articles/articlesSlice';
 import { Provider } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit';
 import articlesReducer from '../../features/articles/articlesSlice';
-import articleDetailReducer from '../../features/detail/articleDetailSlice';
+import articleDetailReducer from '../../features/articles/articleDetailSlice';
 import { RootState } from '../../redux/store';
 import axiosInstance from '../../api/config/axios';
 import type { RenderHookResult } from '@testing-library/react';

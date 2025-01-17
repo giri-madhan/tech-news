@@ -26,13 +26,33 @@ export const ErrorFallback: React.FC<ErrorFallbackProps> = ({
   }, [onReset]);
 
   return (
-    <div className={`error-fallback ${className}`.trim()} role="alert" aria-live="polite">
-      <h2>Something went wrong</h2>
-      <p>{message}</p>
-      {error?.message && <p className="error-fallback__details">Error details: {error.message}</p>}
-      <button onClick={handleReset} type="button" aria-label="Reload page">
-        Reload Page
-      </button>
+    <div
+      className={`error-fallback ${className}`.trim()}
+      role="alert"
+      aria-live="assertive"
+      aria-atomic="true"
+    >
+      <div className="error-fallback__content">
+        <h2 id="error-heading" tabIndex={-1}>
+          Something went wrong
+        </h2>
+        <p id="error-message">{message}</p>
+        {error?.message && (
+          <p className="error-fallback__details" aria-labelledby="error-heading">
+            Error details: {error.message}
+          </p>
+        )}
+        <div className="error-fallback__actions">
+          <button
+            onClick={handleReset}
+            type="button"
+            aria-label="Reload page to try again"
+            className="error-fallback__button"
+          >
+            Reload Page
+          </button>
+        </div>
+      </div>
     </div>
   );
 };

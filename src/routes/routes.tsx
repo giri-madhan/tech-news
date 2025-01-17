@@ -8,7 +8,7 @@ export const ROUTES = {
 } as const;
 
 const ArticleList = React.lazy(() => import('../components/articles/ArticleList'));
-const ArticleDetail = React.lazy(() => import('../features/detail/ArticleDetail'));
+const ArticleDetail = React.lazy(() => import('../features/articles/ArticleDetail'));
 
 export const routes: RouteObject[] = [
   {

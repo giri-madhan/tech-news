@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { RootState, useAppDispatch } from '../../redux/store';
-import { clearArticle, fetchArticleById } from './articleDetailSlice';
+import { clearArticle, fetchArticleById } from '../articles/articleDetailSlice';
 import { LoadingSpinner } from '../../components/common/LoadingSpinner/LoadingSpinner';
 import { ErrorMessage } from '../../components/common/ErrorMessage/ErrorMessage';
 import { useScrollToTop } from '../../hooks/useScrollToTop';
@@ -15,17 +15,21 @@ interface ArticleHeaderProps {
 }
 
 const ArticleHeader: React.FC<ArticleHeaderProps> = ({ sectionName, publicationDate }) => (
-  <div className="article-detail-header">
-    <span className="article-section">{sectionName}</span>
-    <span className="article-date">
-      {new Date(publicationDate).toLocaleDateString('en-US', {
-        weekday: 'long',
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric',
-      })}
-    </span>
-  </div>
+  <header className="article-detail-header" role="banner">
+    <div className="article-meta">
+      <span className="article-section" aria-label="Article section">
+        {sectionName}
+      </span>
+      <time className="article-date" dateTime={publicationDate} aria-label="Publication date">
+        {new Date(publicationDate).toLocaleDateString('en-US', {
+          weekday: 'long',
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric',
+        })}
+      </time>
+    </div>
+  </header>
 );
 
 interface ArticleContentProps {
@@ -35,12 +39,17 @@ interface ArticleContentProps {
 const ArticleContent: React.FC<ArticleContentProps> = ({ article }) => {
   if (article.fields?.body) {
     return (
-      <div className="article-body" dangerouslySetInnerHTML={{ __html: article.fields.body }} />
+      <main
+        className="article-body"
+        dangerouslySetInnerHTML={{ __html: article.fields.body }}
+        role="main"
+        aria-label="Article content"
+      />
     );
   }
 
   return (
-    <>
+    <main className="article-content" role="main">
       <p className="article-detail-description">{article.fields?.trailText}</p>
       <div className="article-detail-cta">
         <p className="article-note">
@@ -50,13 +59,13 @@ const ArticleContent: React.FC<ArticleContentProps> = ({ article }) => {
           href={article.webUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="article-detail-link"
-          aria-label={`Read full article: ${article.webTitle}`}
+          className="article-link"
+          aria-label="Read full article on The Guardian website (opens in new tab)"
         >
-          Read Full Article on The Guardian →
+          Read on The Guardian
         </a>
       </div>
-    </>
+    </main>
   );
 };
 
@@ -65,7 +74,12 @@ interface BackButtonProps {
 }
 
 const BackButton: React.FC<BackButtonProps> = ({ onClick }) => (
-  <button className="back-button" onClick={onClick} aria-label="Go back to articles list">
+  <button
+    onClick={onClick}
+    className="back-button"
+    aria-label="Go back to articles list"
+    type="button"
+  >
     ← Back to Articles
   </button>
 );
